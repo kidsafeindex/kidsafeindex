@@ -20,7 +20,7 @@ export default function Header() {
           <img
             src="/logo.png"
             alt="KidSafe Index"
-            className="h-15 w-auto"
+            className="h-10 w-auto"
            />
         </Link>
 

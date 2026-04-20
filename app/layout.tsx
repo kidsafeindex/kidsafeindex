@@ -32,7 +32,7 @@ export default function RootLayout({
         <img
           src="/logo.png"
           alt="KidSafe Index"
-          className="h-15 w-auto"
+          className="h-10 w-auto"
         />
       </div>
 
