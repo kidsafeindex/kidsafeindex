@@ -84,7 +84,7 @@ export default function RootLayout({
   </a>
 
   <a
-    href="#"
+    href="https://www.linkedin.com/company/kidsafe-index"
     aria-label="LinkedIn"
     className="transition-colors hover:text-slate-900"
   >
