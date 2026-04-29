@@ -390,9 +390,6 @@ export default async function ThreatDetailPage({
               {threat.summary}
             </p>
 
-            <p className="mt-4 text-sm font-medium text-slate-500">
-              Audience Scope: {threat.audienceScope}
-            </p>
           </div>
         </div>
       </section>
