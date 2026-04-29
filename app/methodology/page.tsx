@@ -1,3 +1,15 @@
+function SectionDivider() {
+  return <div className="border-t border-slate-200" />;
+}
+
+function SectionTitle({ children }: { children: React.ReactNode }) {
+  return (
+    <h2 className="text-2xl font-bold text-orange-600">
+      {children}
+    </h2>
+  );
+}
+
 export default function MethodologyPage() {
   return (
     <main className="min-h-screen bg-slate-50/50 text-slate-900">
@@ -18,11 +30,9 @@ export default function MethodologyPage() {
       </section>
 
       <section className="mx-auto max-w-5xl px-6 py-12">
-        <div className="max-w-4xl space-y-12">
+        <div className="max-w-4xl space-y-10">
           <section>
-            <h2 className="text-2xl font-semibold text-slate-800">
-              What We Track
-            </h2>
+            <SectionTitle>What We Track</SectionTitle>
             <p className="mt-3 text-base leading-8 text-slate-600">
               KidSafe Index reviews signals that may point to meaningful digital
               safety concerns, including:
@@ -46,10 +56,10 @@ export default function MethodologyPage() {
             </ul>
           </section>
 
+          <SectionDivider />
+
           <section>
-            <h2 className="text-2xl font-semibold text-slate-800">
-              How Signals Become Threats
-            </h2>
+            <SectionTitle>How Signals Become Threats</SectionTitle>
 
             <div className="mt-3 space-y-5 text-base leading-8 text-slate-600">
               <p>
@@ -71,10 +81,10 @@ export default function MethodologyPage() {
             </div>
           </section>
 
+          <SectionDivider />
+
           <section>
-            <h2 className="text-2xl font-semibold text-slate-800">
-              Audience Scope
-            </h2>
+            <SectionTitle>Audience Scope</SectionTitle>
 
             <div className="mt-3 space-y-5 text-base leading-8 text-slate-600">
               <p>Each threat is assigned one of two audience scopes:</p>
@@ -108,10 +118,10 @@ export default function MethodologyPage() {
             </div>
           </section>
 
+          <SectionDivider />
+
           <section>
-            <h2 className="text-2xl font-semibold text-slate-800">
-              How Scoring Works
-            </h2>
+            <SectionTitle>How Scoring Works</SectionTitle>
 
             <div className="mt-3 space-y-5 text-base leading-8 text-slate-600">
               <p>Each threat is scored across three dimensions:</p>
@@ -147,7 +157,7 @@ export default function MethodologyPage() {
 
               <p>These scores use a 0–5 scale:</p>
 
-              <ul className="list-disc space-y-2 pl-5">
+              <ul className="list-disc space-y-2 pl-5 text-base leading-8 text-slate-600">
                 <li>0 = very low</li>
                 <li>5 = very high</li>
               </ul>
@@ -160,15 +170,15 @@ export default function MethodologyPage() {
             </div>
           </section>
 
+          <SectionDivider />
+
           <section>
-            <h2 className="text-2xl font-semibold text-slate-800">
-              Advice and Resources
-            </h2>
+            <SectionTitle>Advice and Resources</SectionTitle>
 
             <div className="mt-3 space-y-5 text-base leading-8 text-slate-600">
               <p>Each threat also includes practical guidance and context:</p>
 
-              <ul className="list-disc space-y-2 pl-5">
+              <ul className="list-disc space-y-2 pl-5 text-base leading-8 text-slate-600">
                 <li>a short summary of the risk</li>
                 <li>action-oriented advice</li>
                 <li>a “Lumo’s Tip” insight card</li>
@@ -185,12 +195,12 @@ export default function MethodologyPage() {
             </div>
           </section>
 
-          <section>
-            <h2 className="text-2xl font-semibold text-slate-800">
-              Trend Tracking
-            </h2>
+          <SectionDivider />
 
-            <div className="mt-3 space-y-5 text-base leading-8 text-slate-600">
+          <section>
+            <SectionTitle>Trend Tracking</SectionTitle>
+
+            <div className="mt-3 space-y-4 text-base leading-8 text-slate-600">
               <p>
                 KidSafe Index also tracks whether a threat appears to be rising
                 or becoming more visible over time.
@@ -200,8 +210,15 @@ export default function MethodologyPage() {
                 Trend indicators are based on changes in recent signal activity
                 and coverage, not just on one article alone.
               </p>
+
+              <p>
+                This helps highlight issues that may be gaining momentum, not
+                just issues that happened to appear in a single headline.
+              </p>
             </div>
           </section>
+
+          <SectionDivider />
 
           <section>
             <p className="text-base leading-8 text-slate-600">
