@@ -9,6 +9,15 @@ type ThreatDetail = {
   susceptibility: number;
   parentAdvice: string;
   lumoTip: string;
+  signals: string[];
+};
+
+type SignalRecord = {
+  id: string;
+  title: string;
+  sourceUrl: string;
+  sourceName: string;
+  date: string;
 };
 
 type ResourceCard = {
@@ -56,7 +65,46 @@ async function getThreat(id: string): Promise<ThreatDetail | null> {
     susceptibility: record.fields["AI Child Susceptibility"] ?? 0,
     parentAdvice: record.fields["Parent Advice"] || "",
     lumoTip: record.fields["Lumo Tip"] || "",
+    signals: record.fields["Signals"] || [],
   };
+}
+
+async function getSignals(signalIds: string[]): Promise<SignalRecord[]> {
+  const baseId = process.env.AIRTABLE_BASE_ID;
+  const token = process.env.AIRTABLE_TOKEN;
+
+  if (!baseId || !token || signalIds.length === 0) {
+    return [];
+  }
+
+  const records = await Promise.all(
+    signalIds.slice(0, 6).map(async (signalId) => {
+      const url = `https://api.airtable.com/v0/${baseId}/Signals/${signalId}`;
+
+      const response = await fetch(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        cache: "no-store",
+      });
+
+      if (!response.ok) {
+        return null;
+      }
+
+      const record = await response.json();
+
+      return {
+        id: record.id,
+        title: record.fields["Signal Title"] || "Untitled source",
+        sourceUrl: record.fields["Source URL"] || "",
+        sourceName: record.fields["Source Name"] || "Unknown source",
+        date: record.fields["Date"] || "",
+      };
+    })
+  );
+
+  return records.filter(Boolean) as SignalRecord[];
 }
 
 function getSusceptibilityLabel(audienceScope: string) {
@@ -357,6 +405,7 @@ export default async function ThreatDetailPage({
     );
   }
 
+  const signals = await getSignals(threat.signals);
   const susceptibilityLabel = getSusceptibilityLabel(threat.audienceScope);
   const adviceHeading = getAdviceHeading(threat.audienceScope);
   const scoreExplanation = getScoreExplanation(threat.audienceScope);
@@ -389,7 +438,6 @@ export default async function ThreatDetailPage({
             <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-600">
               {threat.summary}
             </p>
-
           </div>
         </div>
       </section>
@@ -515,6 +563,40 @@ export default async function ThreatDetailPage({
           </div>
         </div>
       </section>
+
+      {signals.length > 0 && (
+        <section className="mx-auto max-w-5xl px-6 pb-16">
+          <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
+            <h2 className="text-xl font-semibold text-slate-800">
+              Recent Reporting
+            </h2>
+            <p className="mt-3 text-sm leading-6 text-slate-600">
+              These are some of the signals and source stories that informed this
+              threat summary.
+            </p>
+
+            <div className="mt-5 space-y-4">
+              {signals.map((signal) => (
+                <a
+                  key={signal.id}
+                  href={signal.sourceUrl || "#"}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="block rounded-xl border border-slate-200 bg-slate-50 p-4 transition hover:border-blue-200 hover:bg-blue-50/40"
+                >
+                  <h3 className="text-sm font-semibold text-slate-800">
+                    {signal.title}
+                  </h3>
+                  <p className="mt-2 text-xs uppercase tracking-wide text-slate-500">
+                    {signal.sourceName}
+                    {signal.date ? ` • ${signal.date}` : ""}
+                  </p>
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
     </main>
   );
 }
