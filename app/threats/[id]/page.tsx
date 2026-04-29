@@ -122,6 +122,7 @@ function getHelpfulResources(
             href: "https://www.identitytheft.gov/",
           },
         ];
+
       case "Breach":
       case "Account Theft":
         return [
@@ -138,6 +139,7 @@ function getHelpfulResources(
             href: "https://www.identitytheft.gov/",
           },
         ];
+
       case "Malware":
       case "Cybercrime":
         return [
@@ -154,6 +156,7 @@ function getHelpfulResources(
             href: "https://consumer.ftc.gov/topics/online-security",
           },
         ];
+
       case "Privacy Risk":
         return [
           {
@@ -169,6 +172,7 @@ function getHelpfulResources(
             href: "https://foundation.mozilla.org/en/privacynotincluded/",
           },
         ];
+
       default:
         return [
           {
@@ -204,6 +208,7 @@ function getHelpfulResources(
           href: "https://www.thorn.org/",
         },
       ];
+
     case "Cyberbullying":
       return [
         {
@@ -219,6 +224,7 @@ function getHelpfulResources(
           href: "https://www.commonsensemedia.org/",
         },
       ];
+
     case "Mental Health Risk":
     case "Harmful Content":
       return [
@@ -235,6 +241,7 @@ function getHelpfulResources(
           href: "https://988lifeline.org/",
         },
       ];
+
     case "Scam":
     case "Phishing":
       return [
@@ -251,6 +258,7 @@ function getHelpfulResources(
           href: "https://www.ic3.gov/",
         },
       ];
+
     case "Privacy Risk":
       return [
         {
@@ -264,8 +272,9 @@ function getHelpfulResources(
           description:
             "Consumer guidance on protecting personal information and understanding privacy risks.",
           href: "https://consumer.ftc.gov/topics/protect-your-personal-information-hackers-scammers",
-          },
+        },
       ];
+
     default:
       return [
         {
@@ -455,11 +464,12 @@ export default async function ThreatDetailPage({
                 </div>
               </div>
 
-    <p className="mt-5 text-base leading-7 text-slate-700">
-      {threat.lumoTip || "No additional context available yet."}
-    </p>
-  </div>
-</div>
+              <p className="mt-5 text-base leading-7 text-slate-700">
+                {threat.lumoTip || "No additional context available yet."}
+              </p>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section className="mx-auto max-w-5xl px-6 pb-16">
