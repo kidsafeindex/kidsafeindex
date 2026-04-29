@@ -11,6 +11,12 @@ type ThreatDetail = {
   lumoTip: string;
 };
 
+type ResourceCard = {
+  title: string;
+  description: string;
+  href: string;
+};
+
 async function getThreat(id: string): Promise<ThreatDetail | null> {
   const baseId = process.env.AIRTABLE_BASE_ID;
   const token = process.env.AIRTABLE_TOKEN;
@@ -94,6 +100,190 @@ function splitLines(text: string) {
     .filter(Boolean);
 }
 
+function getHelpfulResources(
+  threatType: string,
+  audienceScope: string
+): ResourceCard[] {
+  if (audienceScope === "Family/Parent") {
+    switch (threatType) {
+      case "Scam":
+      case "Phishing":
+        return [
+          {
+            title: "FTC Scam Guidance",
+            description:
+              "Practical consumer guidance for spotting scams, fake messages, and impersonation attempts.",
+            href: "https://consumer.ftc.gov/scams",
+          },
+          {
+            title: "IdentityTheft.gov",
+            description:
+              "Official recovery and reporting steps if personal information or an account has been compromised.",
+            href: "https://www.identitytheft.gov/",
+          },
+        ];
+      case "Breach":
+      case "Account Theft":
+        return [
+          {
+            title: "Have I Been Pwned",
+            description:
+              "Check whether an email address has appeared in known data breaches.",
+            href: "https://haveibeenpwned.com/",
+          },
+          {
+            title: "IdentityTheft.gov",
+            description:
+              "Step-by-step help for identity theft, stolen credentials, and account misuse.",
+            href: "https://www.identitytheft.gov/",
+          },
+        ];
+      case "Malware":
+      case "Cybercrime":
+        return [
+          {
+            title: "CISA Cyber Guidance",
+            description:
+              "Official security guidance for protecting devices, accounts, and home networks.",
+            href: "https://www.cisa.gov/",
+          },
+          {
+            title: "FTC Online Security Tips",
+            description:
+              "Simple advice for updates, passwords, suspicious downloads, and household cyber safety.",
+            href: "https://consumer.ftc.gov/topics/online-security",
+          },
+        ];
+      case "Privacy Risk":
+        return [
+          {
+            title: "FTC Privacy & Security",
+            description:
+              "Consumer guidance on privacy settings, data collection, and protecting personal information.",
+            href: "https://consumer.ftc.gov/topics/protect-your-personal-information-hackers-scammers",
+          },
+          {
+            title: "Mozilla Privacy Not Included",
+            description:
+              "Reviews and privacy breakdowns for connected devices, apps, and smart home products.",
+            href: "https://foundation.mozilla.org/en/privacynotincluded/",
+          },
+        ];
+      default:
+        return [
+          {
+            title: "FTC Consumer Advice",
+            description:
+              "Broad guidance for scams, fraud, privacy issues, and consumer digital safety.",
+            href: "https://consumer.ftc.gov/",
+          },
+          {
+            title: "CISA",
+            description:
+              "Government cybersecurity guidance for staying safer online at home.",
+            href: "https://www.cisa.gov/",
+          },
+        ];
+    }
+  }
+
+  switch (threatType) {
+    case "Grooming":
+    case "Exploitation":
+      return [
+        {
+          title: "NCMEC",
+          description:
+            "Resources for reporting exploitation, online enticement, and child sexual abuse material concerns.",
+          href: "https://www.missingkids.org/home",
+        },
+        {
+          title: "Thorn for Parents",
+          description:
+            "Guidance to help parents understand grooming, sextortion, and online exploitation risks.",
+          href: "https://www.thorn.org/",
+        },
+      ];
+    case "Cyberbullying":
+      return [
+        {
+          title: "StopBullying.gov",
+          description:
+            "Practical guidance for understanding, responding to, and documenting bullying and cyberbullying.",
+          href: "https://www.stopbullying.gov/",
+        },
+        {
+          title: "Common Sense Media",
+          description:
+            "Parent-friendly guidance for handling online cruelty, group chats, and social pressure.",
+          href: "https://www.commonsensemedia.org/",
+        },
+      ];
+    case "Mental Health Risk":
+    case "Harmful Content":
+      return [
+        {
+          title: "Common Sense Media",
+          description:
+            "Parent guidance for app content, online behavior, and digital well-being.",
+          href: "https://www.commonsensemedia.org/",
+        },
+        {
+          title: "988 Lifeline",
+          description:
+            "Immediate support resource if online content is tied to emotional distress or self-harm concerns.",
+          href: "https://988lifeline.org/",
+        },
+      ];
+    case "Scam":
+    case "Phishing":
+      return [
+        {
+          title: "FTC Scam Guidance",
+          description:
+            "Advice for spotting fake messages, phishing attempts, and impersonation scams.",
+          href: "https://consumer.ftc.gov/scams",
+        },
+        {
+          title: "FBI Internet Crime Complaint Center",
+          description:
+            "Where to report serious online scams, extortion, and cyber-enabled fraud.",
+          href: "https://www.ic3.gov/",
+        },
+      ];
+    case "Privacy Risk":
+      return [
+        {
+          title: "Common Sense Media",
+          description:
+            "Explanations of privacy settings, app permissions, and what to review on youth-focused platforms.",
+          href: "https://www.commonsensemedia.org/",
+        },
+        {
+          title: "FTC Privacy & Security",
+          description:
+            "Consumer guidance on protecting personal information and understanding privacy risks.",
+          href: "https://consumer.ftc.gov/topics/protect-your-personal-information-hackers-scammers",
+          },
+      ];
+    default:
+      return [
+        {
+          title: "Common Sense Media",
+          description:
+            "Parent-friendly digital safety guidance, platform reviews, and age-appropriate recommendations.",
+          href: "https://www.commonsensemedia.org/",
+        },
+        {
+          title: "NCMEC",
+          description:
+            "Child safety resources and reporting pathways for serious online harm concerns.",
+          href: "https://www.missingkids.org/home",
+        },
+      ];
+  }
+}
+
 function ScoreCard({
   label,
   value,
@@ -165,6 +355,10 @@ export default async function ThreatDetailPage({
   const adviceHeading = getAdviceHeading(threat.audienceScope);
   const scoreExplanation = getScoreExplanation(threat.audienceScope);
   const adviceLines = splitLines(threat.parentAdvice);
+  const resources = getHelpfulResources(
+    threat.threatType,
+    threat.audienceScope
+  );
 
   return (
     <main className="min-h-screen bg-slate-50/50 text-slate-900">
@@ -221,7 +415,7 @@ export default async function ThreatDetailPage({
       </section>
 
       <section className="mx-auto max-w-5xl px-6 pb-12">
-        <div className="grid gap-6 lg:grid-cols-[0.85fr_1.15fr]">
+        <div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr]">
           <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm">
             <h2 className="text-lg font-semibold text-slate-800">
               How to read these scores
@@ -246,8 +440,8 @@ export default async function ThreatDetailPage({
             )}
           </div>
 
-          <div className="overflow-hidden rounded-2xl border border-sky-200 shadow-sm">
-            <div className="bg-gradient-to-br from-sky-100 via-cyan-50 to-orange-50 p-7">
+          <div className="overflow-hidden rounded-2xl border border-orange-200 shadow-sm">
+            <div className="bg-gradient-to-br from-orange-100 via-amber-50 to-orange-50 p-7">
               <div className="flex items-center gap-3">
                 <img
                   src="/lumo.png"
@@ -255,12 +449,9 @@ export default async function ThreatDetailPage({
                   className="h-14 w-14 shrink-0"
                 />
                 <div>
-                  <h2 className="text-2xl font-semibold text-slate-800">
+                  <h2 className="text-2xl font-semibold text-orange-600">
                     Lumo’s Tip
                   </h2>
-                  <p className="text-sm text-slate-600">
-                    Quick context to help make sense of this risk.
-                  </p>
                 </div>
               </div>
 
@@ -273,22 +464,49 @@ export default async function ThreatDetailPage({
       </section>
 
       <section className="mx-auto max-w-5xl px-6 pb-16">
-        <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
-          <h2 className="text-xl font-semibold text-slate-800">
-            {adviceHeading}
-          </h2>
+        <div className="grid gap-6 lg:grid-cols-2">
+          <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
+            <h2 className="text-xl font-semibold text-slate-800">
+              {adviceHeading}
+            </h2>
 
-          {adviceLines.length > 0 ? (
-            <ul className="mt-4 list-disc space-y-3 pl-5 text-sm leading-6 text-slate-600">
-              {adviceLines.map((line, index) => (
-                <li key={index}>{line}</li>
+            {adviceLines.length > 0 ? (
+              <ul className="mt-4 list-disc space-y-3 pl-5 text-sm leading-6 text-slate-600">
+                {adviceLines.map((line, index) => (
+                  <li key={index}>{line}</li>
+                ))}
+              </ul>
+            ) : (
+              <p className="mt-4 text-sm leading-6 text-slate-600">
+                No advice is available yet for this threat.
+              </p>
+            )}
+          </div>
+
+          <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
+            <h2 className="text-xl font-semibold text-slate-800">
+              Helpful Resources
+            </h2>
+
+            <div className="mt-4 space-y-4">
+              {resources.map((resource) => (
+                <a
+                  key={resource.href}
+                  href={resource.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="block rounded-xl border border-slate-200 bg-slate-50 p-4 transition hover:border-orange-200 hover:bg-orange-50/50"
+                >
+                  <h3 className="text-sm font-semibold text-slate-800">
+                    {resource.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">
+                    {resource.description}
+                  </p>
+                </a>
               ))}
-            </ul>
-          ) : (
-            <p className="mt-4 text-sm leading-6 text-slate-600">
-              No advice is available yet for this threat.
-            </p>
-          )}
+            </div>
+          </div>
         </div>
       </section>
     </main>
