@@ -211,7 +211,10 @@ export default async function Home() {
 
       <section id="top-risks" className="mx-auto max-w-6xl px-6 py-10">
         <div className="mb-8">
-          <h2 className="text-2xl font-bold text-slate-800">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-500">
+            Child &amp; Teen Focus
+          </p>
+          <h2 className="mt-2 text-2xl font-bold text-slate-800">
             Child &amp; Teen Safety Watch
           </h2>
           <p className="mt-2 text-slate-600">
@@ -236,13 +239,15 @@ export default async function Home() {
       <section className="border-t border-slate-200 bg-slate-50/70">
         <div className="mx-auto max-w-6xl px-6 py-10">
           <div className="mb-8">
-            <h2 className="text-2xl font-bold text-slate-800">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-500">
+              Family Focus
+            </p>
+            <h2 className="mt-2 text-2xl font-bold text-slate-800">
               Family &amp; Parent Safety Watch
             </h2>
             <p className="mt-2 text-slate-600">
-              Broader digital safety risks parents and households should keep an
-              eye on, including scams, breaches, malware, and other family-relevant
-              threats.
+              Broader digital safety risks parents and households should keep an eye on,
+              including scams, breaches, malware, and other family-relevant threats.
             </p>
           </div>
 

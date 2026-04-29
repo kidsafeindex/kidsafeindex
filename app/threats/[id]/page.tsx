@@ -380,6 +380,27 @@ function ScoreCard({
   );
 }
 
+function SectionDivider() {
+  return <div className="mx-auto max-w-5xl border-t border-slate-200 px-6" />;
+}
+
+function SectionHeading({
+  eyebrow,
+  title,
+}: {
+  eyebrow: string;
+  title: string;
+}) {
+  return (
+    <div className="mb-5">
+      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-500">
+        {eyebrow}
+      </p>
+      <h2 className="mt-2 text-xl font-semibold text-slate-800">{title}</h2>
+    </div>
+  );
+}
+
 export default async function ThreatDetailPage({
   params,
 }: {
@@ -443,6 +464,7 @@ export default async function ThreatDetailPage({
       </section>
 
       <section className="mx-auto max-w-5xl px-6 py-10">
+        <SectionHeading eyebrow="Risk Snapshot" title="Current Risk Scores" />
         <div className="grid gap-6 md:grid-cols-3">
           <ScoreCard
             label="Exposure Risk"
@@ -465,12 +487,13 @@ export default async function ThreatDetailPage({
       <section className="mx-auto max-w-5xl px-6 pb-12">
         <div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr]">
           <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm">
-            <h2 className="text-lg font-semibold text-slate-800">
-              How to read these scores
-            </h2>
+            <SectionHeading
+              eyebrow="Score Guide"
+              title="How to read these scores"
+            />
 
             {threat.audienceScope === "Family/Parent" ? (
-              <div className="mt-3 space-y-3 text-sm leading-6 text-slate-600">
+              <div className="space-y-3 text-sm leading-6 text-slate-600">
                 <p>
                   These scores show how likely a broader digital risk is to affect
                   a family or household, how serious the impact could be, and how
@@ -478,7 +501,7 @@ export default async function ThreatDetailPage({
                 </p>
               </div>
             ) : (
-              <div className="mt-3 space-y-3 text-sm leading-6 text-slate-600">
+              <div className="space-y-3 text-sm leading-6 text-slate-600">
                 <p>
                   These scores show how likely a child-focused digital risk is to
                   affect kids or teens, how serious the impact could be, and how
@@ -497,7 +520,10 @@ export default async function ThreatDetailPage({
                   className="h-14 w-14 shrink-0"
                 />
                 <div>
-                  <h2 className="text-2xl font-semibold text-orange-600">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-500">
+                    Lumo Insight
+                  </p>
+                  <h2 className="mt-2 text-2xl font-semibold text-orange-600">
                     Lumo’s Tip
                   </h2>
                 </div>
@@ -511,32 +537,30 @@ export default async function ThreatDetailPage({
         </div>
       </section>
 
-      <section className="mx-auto max-w-5xl px-6 pb-16">
+      <SectionDivider />
+
+      <section className="mx-auto max-w-5xl px-6 py-12">
         <div className="grid gap-6 lg:grid-cols-2">
           <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
-            <h2 className="text-xl font-semibold text-slate-800">
-              {adviceHeading}
-            </h2>
+            <SectionHeading eyebrow="Take Action" title={adviceHeading} />
 
             {adviceLines.length > 0 ? (
-              <ul className="mt-4 list-disc space-y-3 pl-5 text-sm leading-6 text-slate-600">
+              <ul className="list-disc space-y-3 pl-5 text-sm leading-6 text-slate-600">
                 {adviceLines.map((line, index) => (
                   <li key={index}>{line}</li>
                 ))}
               </ul>
             ) : (
-              <p className="mt-4 text-sm leading-6 text-slate-600">
+              <p className="text-sm leading-6 text-slate-600">
                 No advice is available yet for this threat.
               </p>
             )}
           </div>
 
           <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
-            <h2 className="text-xl font-semibold text-slate-800">
-              Helpful Resources
-            </h2>
+            <SectionHeading eyebrow="Learn More" title="Helpful Resources" />
 
-            <p className="mt-3 text-xs leading-5 text-slate-500">
+            <p className="text-xs leading-5 text-slate-500">
               Resource note: These links are provided as potentially helpful
               external references. KidSafe Index does not guarantee, endorse, or
               fully vet every third-party organization, page, or recommendation.
@@ -564,13 +588,13 @@ export default async function ThreatDetailPage({
         </div>
       </section>
 
+      <SectionDivider />
+
       {signals.length > 0 && (
-        <section className="mx-auto max-w-5xl px-6 pb-16">
+        <section className="mx-auto max-w-5xl px-6 py-12">
+          <SectionHeading eyebrow="Source Trail" title="Recent Reporting" />
           <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
-            <h2 className="text-xl font-semibold text-slate-800">
-              Recent Reporting
-            </h2>
-            <p className="mt-3 text-sm leading-6 text-slate-600">
+            <p className="text-sm leading-6 text-slate-600">
               These are some of the signals and source stories that informed this
               threat summary.
             </p>
