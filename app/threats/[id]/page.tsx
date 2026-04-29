@@ -440,8 +440,8 @@ export default async function ThreatDetailPage({
             )}
           </div>
 
-          <div className="overflow-hidden rounded-2xl border border-orange-200 shadow-sm">
-            <div className="bg-gradient-to-br from-orange-100 via-amber-50 to-orange-50 p-7">
+          <div className="overflow-hidden rounded-2xl border border-sky-200 shadow-sm">
+            <div className="bg-gradient-to-br from-sky-100 via-cyan-50 to-orange-50 p-7">
               <div className="flex items-center gap-3">
                 <img
                   src="/lumo.png"
@@ -455,12 +455,11 @@ export default async function ThreatDetailPage({
                 </div>
               </div>
 
-              <p className="mt-5 text-base leading-7 text-slate-700">
-                {threat.lumoTip || "No additional context available yet."}
-              </p>
-            </div>
-          </div>
-        </div>
+    <p className="mt-5 text-base leading-7 text-slate-700">
+      {threat.lumoTip || "No additional context available yet."}
+    </p>
+  </div>
+</div>
       </section>
 
       <section className="mx-auto max-w-5xl px-6 pb-16">
