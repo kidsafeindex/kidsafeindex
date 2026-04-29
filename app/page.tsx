@@ -3,6 +3,7 @@ type Threat = {
   name: string;
   summary: string;
   threatType: string;
+  audienceScope: string;
 };
 
 type TrendThreat = {
@@ -12,7 +13,7 @@ type TrendThreat = {
   color: string;
 };
 
-async function getTopThreats(): Promise<Threat[]> {
+async function getChildTeenThreats(): Promise<Threat[]> {
   const baseId = process.env.AIRTABLE_BASE_ID;
   const token = process.env.AIRTABLE_TOKEN;
 
@@ -20,7 +21,8 @@ async function getTopThreats(): Promise<Threat[]> {
     throw new Error("Missing Airtable environment variables.");
   }
 
-  const url = `https://api.airtable.com/v0/${baseId}/Threats?maxRecords=6&sort[0][field]=Threat%20Score&sort[0][direction]=desc`;
+  const formula = encodeURIComponent(`{Audience Scope} = "Child/Teen"`);
+  const url = `https://api.airtable.com/v0/${baseId}/Threats?filterByFormula=${formula}&maxRecords=6&sort[0][field]=Threat%20Score&sort[0][direction]=desc`;
 
   const response = await fetch(url, {
     headers: {
@@ -41,6 +43,41 @@ async function getTopThreats(): Promise<Threat[]> {
     name: record.fields["Threat Name"] || "Untitled threat",
     summary: record.fields["Summary"] || "No summary available.",
     threatType: record.fields["Threat Type"] || "Unknown",
+    audienceScope: record.fields["Audience Scope"] || "",
+  }));
+}
+
+async function getFamilyParentThreats(): Promise<Threat[]> {
+  const baseId = process.env.AIRTABLE_BASE_ID;
+  const token = process.env.AIRTABLE_TOKEN;
+
+  if (!baseId || !token) {
+    throw new Error("Missing Airtable environment variables.");
+  }
+
+  const formula = encodeURIComponent(`{Audience Scope} = "Family/Parent"`);
+  const url = `https://api.airtable.com/v0/${baseId}/Threats?filterByFormula=${formula}&maxRecords=6&sort[0][field]=Threat%20Score&sort[0][direction]=desc`;
+
+  const response = await fetch(url, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    cache: "no-store",
+  });
+
+  if (!response.ok) {
+    const text = await response.text();
+    throw new Error(`Airtable request failed: ${response.status} ${text}`);
+  }
+
+  const data = await response.json();
+
+  return (data.records || []).map((record: any) => ({
+    id: record.id,
+    name: record.fields["Threat Name"] || "Untitled threat",
+    summary: record.fields["Summary"] || "No summary available.",
+    threatType: record.fields["Threat Type"] || "Unknown",
+    audienceScope: record.fields["Audience Scope"] || "",
   }));
 }
 
@@ -52,8 +89,8 @@ async function getTrendWatch(): Promise<TrendThreat[]> {
     throw new Error("Missing Airtable environment variables.");
   }
 
-  const formula = encodeURIComponent('{Show in Trend Watch} = 1');
-  const url = `https://api.airtable.com/v0/${baseId}/Threats?filterByFormula=${formula}&maxRecords=5&sort[0][field]=Last%20Signal%20Date&sort[0][direction]=desc`;
+  const formula = encodeURIComponent(`{Show in Trend Watch} = 1`);
+  const url = `https://api.airtable.com/v0/${baseId}/Threats?filterByFormula=${formula}&maxRecords=8&sort[0][field]=Last%20Signal%20Date&sort[0][direction]=desc`;
 
   const response = await fetch(url, {
     headers: {
@@ -77,8 +114,35 @@ async function getTrendWatch(): Promise<TrendThreat[]> {
   }));
 }
 
+function ThreatCard({ threat }: { threat: Threat }) {
+  return (
+    <article className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
+      <div className="mb-4">
+        <p className="text-sm font-semibold uppercase tracking-wide text-orange-500">
+          {threat.threatType}
+        </p>
+        <h3 className="mt-2 text-xl font-semibold leading-7 text-slate-800">
+          {threat.name}
+        </h3>
+      </div>
+
+      <p className="flex-1 text-sm leading-6 text-slate-600">
+        {threat.summary}
+      </p>
+
+      <a
+        href={`/threats/${threat.id}`}
+        className="mt-6 inline-flex items-center text-sm font-medium text-blue-600 transition-colors hover:text-blue-700"
+      >
+        View Details →
+      </a>
+    </article>
+  );
+}
+
 export default async function Home() {
-  const topThreats = await getTopThreats();
+  const childTeenThreats = await getChildTeenThreats();
+  const familyParentThreats = await getFamilyParentThreats();
   const trendWatch = await getTrendWatch();
 
   return (
@@ -151,38 +215,48 @@ export default async function Home() {
             Top Risks Right Now
           </h2>
           <p className="mt-2 text-slate-600">
-            A simple snapshot of the most important risks we’re tracking for
-            parents.
+            The most important child and teen online safety risks we’re tracking
+            right now.
           </p>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-3">
-          {topThreats.map((threat) => (
-            <article
-              key={threat.id}
-              className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm"
-            >
-              <div className="mb-4">
-                <p className="text-sm font-semibold uppercase tracking-wide text-orange-500">
-                  {threat.threatType}
-                </p>
-                <h3 className="mt-2 text-xl font-semibold leading-7 text-slate-800">
-                  {threat.name}
-                </h3>
-              </div>
+        {childTeenThreats.length > 0 ? (
+          <div className="grid gap-6 md:grid-cols-3">
+            {childTeenThreats.map((threat) => (
+              <ThreatCard key={threat.id} threat={threat} />
+            ))}
+          </div>
+        ) : (
+          <p className="text-slate-600">
+            No child or teen threats are currently available.
+          </p>
+        )}
+      </section>
 
-              <p className="flex-1 text-sm leading-6 text-slate-600">
-                {threat.summary}
-              </p>
+      <section className="border-t border-slate-200 bg-slate-50/70">
+        <div className="mx-auto max-w-6xl px-6 py-10">
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold text-slate-800">
+              Family &amp; Parent Safety Watch
+            </h2>
+            <p className="mt-2 text-slate-600">
+              Broader digital safety risks parents and households should keep an
+              eye on, including scams, breaches, malware, and other family-relevant
+              threats.
+            </p>
+          </div>
 
-              <a
-                href={`/threats/${threat.id}`}
-                className="mt-6 inline-flex items-center text-sm font-medium text-blue-600 transition-colors hover:text-blue-700"
-              >
-                View Details →
-              </a>
-            </article>
-          ))}
+          {familyParentThreats.length > 0 ? (
+            <div className="grid gap-6 md:grid-cols-3">
+              {familyParentThreats.map((threat) => (
+                <ThreatCard key={threat.id} threat={threat} />
+              ))}
+            </div>
+          ) : (
+            <p className="text-slate-600">
+              No family or parent safety threats are currently available.
+            </p>
+          )}
         </div>
       </section>
 
