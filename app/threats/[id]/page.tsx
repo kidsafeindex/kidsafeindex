@@ -59,6 +59,12 @@ function getSusceptibilityLabel(audienceScope: string) {
     : "Child Susceptibility";
 }
 
+function getAdviceHeading(audienceScope: string) {
+  return audienceScope === "Family/Parent"
+    ? "What To Do Next"
+    : "Parent Advice";
+}
+
 function getScoreExplanation(audienceScope: string) {
   if (audienceScope === "Family/Parent") {
     return {
@@ -97,23 +103,23 @@ function ScoreCard({
   label: string;
   value: number;
   description: string;
-  tone: "blue" | "orange" | "purple";
+  tone: "green" | "yellow" | "red";
 }) {
   const toneClasses = {
-    blue: {
-      card: "border-sky-200 bg-sky-50/80",
-      label: "text-sky-700",
-      value: "text-sky-900",
+    green: {
+      card: "border-emerald-200 bg-emerald-50/90",
+      label: "text-emerald-700",
+      value: "text-emerald-900",
     },
-    orange: {
-      card: "border-orange-200 bg-orange-50/80",
-      label: "text-orange-700",
-      value: "text-orange-900",
+    yellow: {
+      card: "border-amber-200 bg-amber-50/90",
+      label: "text-amber-700",
+      value: "text-amber-900",
     },
-    purple: {
-      card: "border-violet-200 bg-violet-50/80",
-      label: "text-violet-700",
-      value: "text-violet-900",
+    red: {
+      card: "border-rose-200 bg-rose-50/90",
+      label: "text-rose-700",
+      value: "text-rose-900",
     },
   };
 
@@ -156,6 +162,7 @@ export default async function ThreatDetailPage({
   }
 
   const susceptibilityLabel = getSusceptibilityLabel(threat.audienceScope);
+  const adviceHeading = getAdviceHeading(threat.audienceScope);
   const scoreExplanation = getScoreExplanation(threat.audienceScope);
   const adviceLines = splitLines(threat.parentAdvice);
 
@@ -196,71 +203,59 @@ export default async function ThreatDetailPage({
             label="Exposure Risk"
             value={threat.exposureRisk}
             description={scoreExplanation.exposure}
-            tone="blue"
+            tone="green"
           />
           <ScoreCard
             label="Harm Severity"
             value={threat.harmSeverity}
             description={scoreExplanation.harm}
-            tone="orange"
+            tone="yellow"
           />
           <ScoreCard
             label={susceptibilityLabel}
             value={threat.susceptibility}
             description={scoreExplanation.susceptibility}
-            tone="purple"
+            tone="red"
           />
         </div>
       </section>
 
       <section className="mx-auto max-w-5xl px-6 pb-12">
-        <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-          <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
-            <h2 className="text-xl font-semibold text-slate-800">
+        <div className="grid gap-6 lg:grid-cols-[0.85fr_1.15fr]">
+          <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm">
+            <h2 className="text-lg font-semibold text-slate-800">
               How to read these scores
             </h2>
 
             {threat.audienceScope === "Family/Parent" ? (
-              <div className="mt-4 space-y-4 text-sm leading-6 text-slate-600">
+              <div className="mt-3 space-y-3 text-sm leading-6 text-slate-600">
                 <p>
-                  These scores are designed to help families quickly understand
-                  how often a broader digital risk may show up, how serious the
-                  impact could be, and how vulnerable a household may be to it.
-                </p>
-                <p>
-                  A higher score does not mean something bad will definitely
-                  happen. It means the risk deserves more attention because it is
-                  more common, more harmful, or easier for people to fall for.
+                  These scores show how likely a broader digital risk is to affect
+                  a family or household, how serious the impact could be, and how
+                  vulnerable someone in the household may be.
                 </p>
               </div>
             ) : (
-              <div className="mt-4 space-y-4 text-sm leading-6 text-slate-600">
+              <div className="mt-3 space-y-3 text-sm leading-6 text-slate-600">
                 <p>
-                  These scores are designed to help parents quickly understand
-                  how often a child-focused digital risk may show up, how
-                  serious the impact could be, and how vulnerable kids may be to
-                  it.
-                </p>
-                <p>
-                  A higher score does not mean something bad will definitely
-                  happen. It means the risk deserves more attention because it is
-                  more common, more harmful, or easier for children and teens to
-                  encounter or trust.
+                  These scores show how likely a child-focused digital risk is to
+                  affect kids or teens, how serious the impact could be, and how
+                  vulnerable young users may be.
                 </p>
               </div>
             )}
           </div>
 
           <div className="overflow-hidden rounded-2xl border border-sky-200 shadow-sm">
-            <div className="bg-gradient-to-br from-sky-100 via-cyan-50 to-orange-50 p-6">
+            <div className="bg-gradient-to-br from-sky-100 via-cyan-50 to-orange-50 p-7">
               <div className="flex items-center gap-3">
                 <img
                   src="/lumo.png"
                   alt="Lumo"
-                  className="h-12 w-12 shrink-0"
+                  className="h-14 w-14 shrink-0"
                 />
                 <div>
-                  <h2 className="text-xl font-semibold text-slate-800">
+                  <h2 className="text-2xl font-semibold text-slate-800">
                     Lumo’s Tip
                   </h2>
                   <p className="text-sm text-slate-600">
@@ -269,7 +264,7 @@ export default async function ThreatDetailPage({
                 </div>
               </div>
 
-              <p className="mt-5 text-sm leading-6 text-slate-700">
+              <p className="mt-5 text-base leading-7 text-slate-700">
                 {threat.lumoTip || "No additional context available yet."}
               </p>
             </div>
@@ -280,7 +275,7 @@ export default async function ThreatDetailPage({
       <section className="mx-auto max-w-5xl px-6 pb-16">
         <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
           <h2 className="text-xl font-semibold text-slate-800">
-            Parent Advice
+            {adviceHeading}
           </h2>
 
           {adviceLines.length > 0 ? (
