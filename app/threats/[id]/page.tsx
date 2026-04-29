@@ -485,54 +485,27 @@ export default async function ThreatDetailPage({
       </section>
 
       <section className="mx-auto max-w-5xl px-6 pb-12">
-        <div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr]">
-          <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm">
-            <SectionHeading
-              eyebrow="Score Guide"
-              title="How to read these scores"
-            />
-
-            {threat.audienceScope === "Family/Parent" ? (
-              <div className="space-y-3 text-sm leading-6 text-slate-600">
-                <p>
-                  These scores show how likely a broader digital risk is to affect
-                  a family or household, how serious the impact could be, and how
-                  vulnerable someone in the household may be.
+        <div className="overflow-hidden rounded-2xl border border-sky-200 shadow-sm">
+          <div className="bg-gradient-to-br from-sky-100 via-cyan-50 to-orange-50 p-7">
+            <div className="flex items-center gap-3">
+              <img
+                src="/lumo.png"
+                alt="Lumo"
+                className="h-14 w-14 shrink-0"
+              />
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-500">
+                  Lumo Insight
                 </p>
+                <h2 className="mt-2 text-2xl font-semibold text-orange-600">
+                  Lumo’s Tip
+                </h2>
               </div>
-            ) : (
-              <div className="space-y-3 text-sm leading-6 text-slate-600">
-                <p>
-                  These scores show how likely a child-focused digital risk is to
-                  affect kids or teens, how serious the impact could be, and how
-                  vulnerable young users may be.
-                </p>
-              </div>
-            )}
-          </div>
-
-          <div className="overflow-hidden rounded-2xl border border-sky-200 shadow-sm">
-            <div className="bg-gradient-to-br from-sky-100 via-cyan-50 to-orange-50 p-7">
-              <div className="flex items-center gap-3">
-                <img
-                  src="/lumo.png"
-                  alt="Lumo"
-                  className="h-14 w-14 shrink-0"
-                />
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-500">
-                    Lumo Insight
-                  </p>
-                  <h2 className="mt-2 text-2xl font-semibold text-orange-600">
-                    Lumo’s Tip
-                  </h2>
-                </div>
-              </div>
-
-              <p className="mt-5 text-base leading-7 text-slate-700">
-                {threat.lumoTip || "No additional context available yet."}
-              </p>
             </div>
+
+            <p className="mt-5 text-base leading-7 text-slate-700">
+              {threat.lumoTip || "No additional context available yet."}
+            </p>
           </div>
         </div>
       </section>
@@ -541,23 +514,23 @@ export default async function ThreatDetailPage({
 
       <section className="mx-auto max-w-5xl px-6 py-12">
         <div className="grid gap-6 lg:grid-cols-2">
-          <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
+          <div className="rounded-2xl border border-amber-200 bg-amber-50/70 p-6 shadow-sm">
             <SectionHeading eyebrow="Take Action" title={adviceHeading} />
 
             {adviceLines.length > 0 ? (
-              <ul className="list-disc space-y-3 pl-5 text-sm leading-6 text-slate-600">
+              <ul className="list-disc space-y-3 pl-5 text-sm leading-6 text-slate-700">
                 {adviceLines.map((line, index) => (
                   <li key={index}>{line}</li>
                 ))}
               </ul>
             ) : (
-              <p className="text-sm leading-6 text-slate-600">
+              <p className="text-sm leading-6 text-slate-700">
                 No advice is available yet for this threat.
               </p>
             )}
           </div>
 
-          <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
+          <div className="rounded-2xl border border-sky-200 bg-sky-50/70 p-6 shadow-sm">
             <SectionHeading eyebrow="Learn More" title="Helpful Resources" />
 
             <p className="text-xs leading-5 text-slate-500">
@@ -573,7 +546,7 @@ export default async function ThreatDetailPage({
                   href={resource.href}
                   target="_blank"
                   rel="noreferrer"
-                  className="block rounded-xl border border-slate-200 bg-slate-50 p-4 transition hover:border-orange-200 hover:bg-orange-50/50"
+                  className="block rounded-xl border border-slate-200 bg-white/80 p-4 transition hover:border-orange-200 hover:bg-orange-50/50"
                 >
                   <h3 className="text-sm font-semibold text-slate-800">
                     {resource.title}
