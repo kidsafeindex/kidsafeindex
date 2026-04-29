@@ -13,9 +13,11 @@ export default function AboutPage() {
 
           <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-600">
             KidSafe Index helps parents stay informed about online risks
-            affecting kids across apps and the wider online world. We track
-            emerging threats, platform safety concerns, and child-focused online
-            risks, then translate them into clear, plain-language insights.
+            affecting kids, teens, and the broader family environment around
+            them. We track emerging threats, platform safety concerns, and
+            child-focused online risks, while also highlighting broader
+            family-relevant digital threats like scams, breaches, phishing,
+            malware, and privacy concerns.
           </p>
         </div>
       </section>
@@ -26,20 +28,28 @@ export default function AboutPage() {
             <h2 className="text-2xl font-bold text-slate-800">Why It Exists</h2>
             <p className="mt-4 leading-7 text-slate-700">
               Parents are constantly expected to keep up with new apps, platform
-              changes, harmful online trends, and digital safety issues. That
-              information is often scattered, overly technical, or easy to miss.
+              changes, harmful online trends, scams, privacy issues, and
+              fast-moving digital safety concerns. That information is often
+              scattered, overly technical, or easy to miss.
+            </p>
+            <p className="mt-4 leading-7 text-slate-700">
               KidSafe Index brings it together in one place and makes it easier
-              to understand.
+              to understand. The site is designed to help families make sense of
+              both child-focused online safety risks and the broader digital
+              threats that can affect the household around them.
             </p>
           </div>
 
           <div>
-            <h2 className="text-2xl font-bold text-slate-800">What You’ll Find Here</h2>
+            <h2 className="text-2xl font-bold text-slate-800">
+              What You’ll Find Here
+            </h2>
             <ul className="mt-4 space-y-3 text-slate-700">
-              <li>• Clear summaries of current child safety risks</li>
+              <li>• Clear summaries of child and teen online safety risks</li>
+              <li>• Broader family-relevant digital threat tracking</li>
               <li>• Platform-related safety concerns and online threat trends</li>
               <li>• Easy-to-understand risk scoring</li>
-              <li>• Parent advice and practical next steps</li>
+              <li>• Practical guidance and next steps</li>
             </ul>
           </div>
 
@@ -48,7 +58,8 @@ export default function AboutPage() {
             <p className="mt-4 leading-7 text-slate-700">
               KidSafe Index is built for parents, caregivers, and families who
               want a clearer view of the online risks that may affect the kids
-              in their lives.
+              in their lives, while also staying aware of the broader digital
+              threats that can impact the household as a whole.
             </p>
           </div>
         </div>
@@ -74,7 +85,7 @@ export default function AboutPage() {
             </h2>
 
             <p className="mt-5 leading-7 text-slate-700">
-              Lumo KidSafe Indexs' mascot and guide. Lumo represents
+              Lumo is KidSafe Index&apos;s mascot and guide. Lumo represents
               awareness, clarity, and early warning, helping parents spot
               online risks sooner and understand them more clearly.
             </p>
@@ -82,11 +93,10 @@ export default function AboutPage() {
             <p className="mt-4 leading-7 text-slate-700">
               The name <span className="font-semibold">Lumo</span> comes from
               the idea of light and illumination. It reflects the role KidSafe
-              Index plays: shining a light on child safety risks across the online
-              world, and turning complex information into something parents can
-              actually use.
+              Index plays: shining a light on child safety risks and broader
+              family-relevant digital threats, then turning complex information
+              into something parents can actually use.
             </p>
-
           </div>
         </div>
       </section>

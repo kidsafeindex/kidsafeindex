@@ -1,144 +1,214 @@
 export default function MethodologyPage() {
   return (
-    <main className="min-h-screen text-slate-900">
-      <section className="border-b border-slate-200">
-        <div className="mx-auto max-w-4xl px-6 py-16">
-          <p className="text-sm font-semibold uppercase tracking-wide text-orange-500">
+    <main className="min-h-screen bg-slate-50/50 text-slate-900">
+      <section className="border-b border-slate-200 bg-white">
+        <div className="mx-auto max-w-5xl px-6 py-14">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-500">
             Methodology
           </p>
-
-          <h1 className="mt-3 text-4xl font-bold tracking-tight text-slate-800 sm:text-5xl">
-            How KidSafe Index Scores Risk
+          <h1 className="mt-3 text-4xl font-bold tracking-tight text-slate-800">
+            How KidSafe Index Works
           </h1>
-
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-600">
-            KidSafe Index is designed to help parents make sense of online risks
-            affecting kids in a clearer, more practical way. Our scoring system
-            is meant to provide context, highlight relative concern, and explain
-            why some risks deserve more attention than others.
+          <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-600">
+            KidSafe Index is designed to turn fast-moving digital safety signals
+            into clear, structured risk summaries that parents can understand
+            more easily.
           </p>
         </div>
       </section>
 
-      <section className="mx-auto max-w-4xl px-6 py-12">
-        <div className="space-y-12">
-          <div>
-            <h2 className="text-2xl font-bold text-slate-800">
-              The Three Core Scores
+      <section className="mx-auto max-w-5xl px-6 py-12">
+        <div className="max-w-4xl space-y-12">
+          <section>
+            <h2 className="text-2xl font-semibold text-slate-800">
+              What We Track
             </h2>
-            <p className="mt-4 leading-7 text-slate-700">
-              Each threat is evaluated using three separate scores. Together,
-              these help show how likely a risk is to appear, how serious it may
-              be, and how likely a child is to fall for it.
+            <p className="mt-3 text-base leading-8 text-slate-600">
+              KidSafe Index reviews signals that may point to meaningful digital
+              safety concerns, including:
             </p>
-          </div>
 
-          <div className="grid gap-6 md:grid-cols-3">
-            <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
-              <h3 className="text-lg font-semibold text-slate-800">
-                Exposure Risk
-              </h3>
-              <p className="mt-3 text-sm leading-7 text-slate-600">
-                How likely your child is to encounter the risk if they use the
-                relevant app, video game, website, or online service.
+            <ul className="mt-4 list-disc space-y-2 pl-5 text-base leading-8 text-slate-600">
+              <li>child and teen online safety risks</li>
+              <li>grooming and exploitation concerns</li>
+              <li>cyberbullying and social manipulation</li>
+              <li>harmful or disturbing content</li>
+              <li>privacy and data misuse</li>
+              <li>mental health risks linked to digital platforms</li>
+              <li>
+                scams, phishing, breaches, malware, and other family-relevant
+                digital threats
+              </li>
+              <li>
+                regulatory, platform, and enforcement developments connected to
+                digital safety
+              </li>
+            </ul>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold text-slate-800">
+              How Signals Become Threats
+            </h2>
+
+            <div className="mt-3 space-y-5 text-base leading-8 text-slate-600">
+              <p>
+                The site does not treat every article or report as a separate
+                threat.
+              </p>
+
+              <p>
+                Instead, new signals are reviewed and normalized into broader
+                recurring threat categories. If multiple stories describe the
+                same underlying issue, they are grouped into one stable threat
+                rather than creating duplicate cards.
+              </p>
+
+              <p>
+                This helps the site stay focused on meaningful risk patterns
+                instead of isolated headlines.
               </p>
             </div>
+          </section>
 
-            <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
-              <h3 className="text-lg font-semibold text-slate-800">
-                Harm Severity
-              </h3>
-              <p className="mt-3 text-sm leading-7 text-slate-600">
-                How serious the impact could be if the risk affects your child.
+          <section>
+            <h2 className="text-2xl font-semibold text-slate-800">
+              Audience Scope
+            </h2>
+
+            <div className="mt-3 space-y-5 text-base leading-8 text-slate-600">
+              <p>Each threat is assigned one of two audience scopes:</p>
+
+              <div>
+                <h3 className="text-lg font-semibold text-slate-800">
+                  Child/Teen
+                </h3>
+                <p className="mt-1">
+                  Used when the core risk is primarily about protecting children
+                  or teens directly.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-semibold text-slate-800">
+                  Family/Parent
+                </h3>
+                <p className="mt-1">
+                  Used when the core risk is broader household digital safety,
+                  including scams, breaches, malware, phishing, or other
+                  family-relevant digital threats.
+                </p>
+              </div>
+
+              <p>
+                This allows KidSafe Index to stay child-focused while also
+                helping parents understand larger risks affecting the household
+                around them.
               </p>
             </div>
+          </section>
 
-            <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
-              <h3 className="text-lg font-semibold text-slate-800">
-                Child Susceptibility
-              </h3>
-              <p className="mt-3 text-sm leading-7 text-slate-600">
-                How likely your child is to fall for, believe, trust, or be
-                drawn into the risk.
+          <section>
+            <h2 className="text-2xl font-semibold text-slate-800">
+              How Scoring Works
+            </h2>
+
+            <div className="mt-3 space-y-5 text-base leading-8 text-slate-600">
+              <p>Each threat is scored across three dimensions:</p>
+
+              <div>
+                <h3 className="text-lg font-semibold text-slate-800">
+                  Exposure Risk
+                </h3>
+                <p className="mt-1">
+                  How likely someone in the relevant audience is to encounter
+                  the threat.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-semibold text-slate-800">
+                  Harm Severity
+                </h3>
+                <p className="mt-1">
+                  How serious the impact could be if the threat occurs.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-semibold text-slate-800">
+                  Susceptibility
+                </h3>
+                <p className="mt-1">
+                  How likely someone in the relevant audience is to trust, fall
+                  for, or be affected by the threat.
+                </p>
+              </div>
+
+              <p>These scores use a 0–5 scale:</p>
+
+              <ul className="list-disc space-y-2 pl-5">
+                <li>0 = very low</li>
+                <li>5 = very high</li>
+              </ul>
+
+              <p>
+                For Child/Teen threats, susceptibility reflects how vulnerable
+                kids or teens may be. For Family/Parent threats, susceptibility
+                reflects how vulnerable someone in the household may be.
               </p>
             </div>
-          </div>
+          </section>
 
-          <div>
-            <h2 className="text-2xl font-bold text-slate-800">
-              What the Levels Mean
+          <section>
+            <h2 className="text-2xl font-semibold text-slate-800">
+              Advice and Resources
             </h2>
-            <p className="mt-4 leading-7 text-slate-700">
-              To make scores easier for parents to understand, KidSafe Index
-              groups them into simple categories like Low, Moderate, and High.
-              These categories are meant to provide a quick sense of concern,
-              not just a raw number.
-            </p>
-          </div>
 
-          <div className="rounded-2xl border border-red-200/80 bg-gradient-to-br from-red-50 to-rose-50 p-6 shadow-sm">
-            <h3 className="text-lg font-semibold text-slate-800">
-              High
-            </h3>
-            <p className="mt-3 text-sm leading-7 text-slate-600">
-              A High score usually means the risk is especially likely to be
-              encountered, especially harmful if it happens, or especially easy
-              for kids to fall for.
-            </p>
-            </div>
+            <div className="mt-3 space-y-5 text-base leading-8 text-slate-600">
+              <p>Each threat also includes practical guidance and context:</p>
 
-          <div className="rounded-2xl border border-yellow-200/80 bg-gradient-to-br from-yellow-50 to-amber-50 p-6 shadow-sm">
-            <h3 className="text-lg font-semibold text-slate-800">
-                Moderate
-            </h3>
-            <p className="mt-3 text-sm leading-7 text-slate-600">
-              A Moderate score means the risk is meaningful and worth attention,
-              but may be less common, less severe, or harder for most kids to
-              engage with directly.
-            </p>
-          </div>
+              <ul className="list-disc space-y-2 pl-5">
+                <li>a short summary of the risk</li>
+                <li>action-oriented advice</li>
+                <li>a “Lumo’s Tip” insight card</li>
+                <li>
+                  selected external resources that may help readers learn more
+                </li>
+              </ul>
 
-            <div className="rounded-2xl border border-green-200/80 bg-gradient-to-br from-green-50 to-emerald-50 p-6 shadow-sm">
-             <h3 className="text-lg font-semibold text-slate-800">Low</h3>
-              <p className="mt-3 text-sm leading-7 text-slate-600">
-                A Low score means the risk may still matter, but is less likely
-                to be encountered, less severe, or less likely to directly fool
-                or affect most children.
+              <p>
+                External resources are included as potentially helpful
+                references, but not every outside organization or page is fully
+                vetted or endorsed by KidSafe Index.
               </p>
             </div>
+          </section>
 
-          <div>
-            <h2 className="text-2xl font-bold text-slate-800">
-              How We Think About Risk
+          <section>
+            <h2 className="text-2xl font-semibold text-slate-800">
+              Trend Tracking
             </h2>
-            <p className="mt-4 leading-7 text-slate-700">
-                Not all online risks are dangerous in the same way. Some are highly
-                visible and easy to run into. Some are rare but severe. Others are
-                not especially technical, but are socially persuasive and therefore
-                easier for kids to trust or fall for. Exposure also depends on
-                whether a child actually uses the relevant app, game, website, or
-                online service where the risk appears.
-            </p>
-            <p className="mt-4 leading-7 text-slate-700">
-              Our scoring is designed to reflect those differences so parents can
-              better understand not just what a risk is, but why it matters.
-            </p>
-          </div>
 
-          <div className="rounded-2xl border border-slate-200/80 bg-sky-50/50 p-6 shadow-sm">
-            <p className="text-sm font-semibold uppercase tracking-wide text-orange-500">
-              Important Note
+            <div className="mt-3 space-y-5 text-base leading-8 text-slate-600">
+              <p>
+                KidSafe Index also tracks whether a threat appears to be rising
+                or becoming more visible over time.
+              </p>
+
+              <p>
+                Trend indicators are based on changes in recent signal activity
+                and coverage, not just on one article alone.
+              </p>
+            </div>
+          </section>
+
+          <section>
+            <p className="text-base leading-8 text-slate-600">
+              KidSafe Index is meant to help parents see patterns more clearly,
+              understand what matters, and respond with better context.
             </p>
-            <h2 className="mt-3 text-2xl font-bold text-slate-800">
-              These Scores Are a Guide, Not a Guarantee
-            </h2>
-            <p className="mt-4 leading-7 text-slate-700">
-              KidSafe Index scores are meant to help parents understand relative
-              concern and ask better questions. They are not meant to replace
-              judgment, personal knowledge of your child, or the reality that
-              online risk can vary from family to family.
-            </p>
-          </div>
+          </section>
         </div>
       </section>
     </main>

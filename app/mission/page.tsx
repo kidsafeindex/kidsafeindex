@@ -13,8 +13,8 @@ export default function MissionPage() {
 
           <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-600">
             KidSafe Index exists to help parents better understand the online
-            risks affecting kids across apps, video games, and the wider online
-            world, without needing specialized technical knowledge to do it.
+            risks affecting kids, teens, and the families guiding them, without
+            needing specialized technical knowledge to do it.
           </p>
         </div>
       </section>
@@ -38,6 +38,12 @@ export default function MissionPage() {
               risks matter most, and what those risks actually mean in everyday
               life.
             </p>
+            <p className="mt-4 leading-7 text-slate-700">
+              While the site remains centered on child and teen online safety,
+              it also recognizes that parents need visibility into broader
+              digital threats affecting the household, including scams,
+              breaches, phishing, malware, and other family-relevant risks.
+            </p>
           </div>
 
           <div>
@@ -50,21 +56,22 @@ export default function MissionPage() {
             </p>
 
             <p className="mt-4 leading-7 text-slate-700">
-              Parents are surrounded by warnings, headlines, platform changes, new apps,
-              and fast-moving online threats. When everything feels urgent, it becomes
-              harder to tell what actually deserves attention.
+              Parents are surrounded by warnings, headlines, platform changes,
+              new apps, and fast-moving online threats. When everything feels
+              urgent, it becomes harder to tell what actually deserves
+              attention.
             </p>
 
             <p className="mt-4 leading-7 text-slate-700">
-              KidSafe Index exists to help cut through that noise. The goal is not to
-              overwhelm families with everything that could go wrong. The goal is to help
-              parents understand which risks matter most, why they matter, and what to do
-              next.
+              KidSafe Index exists to help cut through that noise. The goal is
+              not to overwhelm families with everything that could go wrong. The
+              goal is to help parents understand which risks matter most, why
+              they matter, and what to do next.
             </p>
 
             <p className="mt-4 leading-7 text-slate-700">
-              In other words, KidSafe Index is built to help parents prioritize, not just
-              react.
+              In other words, KidSafe Index is built to help parents prioritize,
+              not just react.
             </p>
           </div>
 
@@ -76,17 +83,17 @@ export default function MissionPage() {
               Professional Insight, Personal Mission
             </h2>
             <p className="mt-4 leading-7 text-slate-700">
-              KidSafe Index was created by a father, and cybersecurity professional, 
-              with a passion for privacy, online safety, and practical
-              protection.
+              KidSafe Index was created by a father and cybersecurity
+              professional with a passion for privacy, online safety, and
+              practical protection.
             </p>
             <p className="mt-4 leading-7 text-slate-700">
               For years, he has used his cybersecurity expertise to help
               organizations better understand digital threats, reduce risk, and
-              build confidence in an increasingly complex online environment. KidSafe Index
-              brings that same mindset to parents and everyday families, translating
-              what is often technical, scattered, or overwhelming into
-              something clearer and more useful.
+              build confidence in an increasingly complex online environment.
+              KidSafe Index brings that same mindset to parents and everyday
+              families, translating what is often technical, scattered, or
+              overwhelming into something clearer and more useful.
             </p>
             <p className="mt-4 leading-7 text-slate-700">
               Because the truth is simple: you should not need a

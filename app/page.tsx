@@ -151,13 +151,13 @@ export default async function Home() {
         <div className="mx-auto grid max-w-6xl gap-10 px-6 py-16 md:grid-cols-2 md:items-center">
           <div>
             <h1 className="max-w-3xl text-4xl font-bold tracking-tight text-slate-800 sm:text-5xl">
-              Stay Ahead of Online Risks Affecting Your Kids.
+              Stay Ahead of Online Risks Affecting Kids, Teens, and Families.
             </h1>
 
             <p className="mt-5 max-w-2xl text-lg text-slate-600">
-              Real-time insights into child safety risks across apps, video
-              games, and the wider online world, explained in plain language
-              for parents.
+                KidSafe Index helps parents make sense of fast-changing digital risks
+                by tracking child and teen online safety issues alongside broader
+                family-relevant threats like scams, breaches, phishing, and privacy concerns.
             </p>
           </div>
 
@@ -272,8 +272,9 @@ export default async function Home() {
               How KidSafe Index Helps
             </h2>
             <p className="mt-2 max-w-2xl text-slate-600">
-              KidSafe Index helps parents make sense of online risks by turning
-              fast-changing digital safety issues into clear, useful insights.
+                  KidSafe Index helps families make sense of online risks by turning
+                  fast-changing digital safety issues into clear, useful insights.
+
             </p>
           </div>
 
@@ -281,28 +282,22 @@ export default async function Home() {
             <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
               <h3 className="text-lg font-semibold">Spot Risks Earlier</h3>
               <p className="mt-3 text-sm leading-6 text-slate-600">
-                Stay aware of emerging online safety concerns affecting kids
-                across apps and the wider online world.
+                Stay aware of emerging digital safety concerns affecting kids, teens, and the households around them.
               </p>
             </div>
 
             <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
-              <h3 className="text-lg font-semibold">
-                Understand What Matters
-              </h3>
-              <p className="mt-3 text-sm leading-6 text-slate-600">
-                Get clear explanations of threats, trends, and safety concerns
-                without having to sort through technical or confusing
-                information.
-              </p>
+              <h3 className="text-lg font-semibold">Understand What Matters</h3>
+                <p className="mt-3 text-sm leading-6 text-slate-600">
+                  Get plain-language explanations of threats, trends, and online safety concerns without having to sort through technical or confusing information.
+                </p>
             </div>
 
             <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
               <h3 className="text-lg font-semibold">Know What To Do Next</h3>
-              <p className="mt-3 text-sm leading-6 text-slate-600">
-                Use parent-focused guidance to better understand what each issue
-                means and how to respond with confidence.
-              </p>
+                <p className="mt-3 text-sm leading-6 text-slate-600">
+                  Use practical guidance to better understand what each issue means and how to respond with more confidence.
+                </p>
             </div>
           </div>
         </div>
