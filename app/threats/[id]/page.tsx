@@ -122,7 +122,6 @@ function getHelpfulResources(
             href: "https://www.identitytheft.gov/",
           },
         ];
-
       case "Breach":
       case "Account Theft":
         return [
@@ -139,7 +138,6 @@ function getHelpfulResources(
             href: "https://www.identitytheft.gov/",
           },
         ];
-
       case "Malware":
       case "Cybercrime":
         return [
@@ -156,7 +154,6 @@ function getHelpfulResources(
             href: "https://consumer.ftc.gov/topics/online-security",
           },
         ];
-
       case "Privacy Risk":
         return [
           {
@@ -172,7 +169,6 @@ function getHelpfulResources(
             href: "https://foundation.mozilla.org/en/privacynotincluded/",
           },
         ];
-
       default:
         return [
           {
@@ -202,13 +198,12 @@ function getHelpfulResources(
           href: "https://www.missingkids.org/home",
         },
         {
-          title: "Thorn for Parents",
+          title: "Thorn",
           description:
-            "Guidance to help parents understand grooming, sextortion, and online exploitation risks.",
+            "Guidance related to grooming, sextortion, and online exploitation risks.",
           href: "https://www.thorn.org/",
         },
       ];
-
     case "Cyberbullying":
       return [
         {
@@ -224,7 +219,6 @@ function getHelpfulResources(
           href: "https://www.commonsensemedia.org/",
         },
       ];
-
     case "Mental Health Risk":
     case "Harmful Content":
       return [
@@ -241,7 +235,6 @@ function getHelpfulResources(
           href: "https://988lifeline.org/",
         },
       ];
-
     case "Scam":
     case "Phishing":
       return [
@@ -258,7 +251,6 @@ function getHelpfulResources(
           href: "https://www.ic3.gov/",
         },
       ];
-
     case "Privacy Risk":
       return [
         {
@@ -274,7 +266,6 @@ function getHelpfulResources(
           href: "https://consumer.ftc.gov/topics/protect-your-personal-information-hackers-scammers",
         },
       ];
-
     default:
       return [
         {
@@ -293,17 +284,23 @@ function getHelpfulResources(
   }
 }
 
+function getScoreTone(value: number): "green" | "yellow" | "red" {
+  if (value <= 1) return "green";
+  if (value <= 3) return "yellow";
+  return "red";
+}
+
 function ScoreCard({
   label,
   value,
   description,
-  tone,
 }: {
   label: string;
   value: number;
   description: string;
-  tone: "green" | "yellow" | "red";
 }) {
+  const tone = getScoreTone(value);
+
   const toneClasses = {
     green: {
       card: "border-emerald-200 bg-emerald-50/90",
@@ -406,19 +403,16 @@ export default async function ThreatDetailPage({
             label="Exposure Risk"
             value={threat.exposureRisk}
             description={scoreExplanation.exposure}
-            tone="green"
           />
           <ScoreCard
             label="Harm Severity"
             value={threat.harmSeverity}
             description={scoreExplanation.harm}
-            tone="yellow"
           />
           <ScoreCard
             label={susceptibilityLabel}
             value={threat.susceptibility}
             description={scoreExplanation.susceptibility}
-            tone="red"
           />
         </div>
       </section>
@@ -496,6 +490,12 @@ export default async function ThreatDetailPage({
             <h2 className="text-xl font-semibold text-slate-800">
               Helpful Resources
             </h2>
+
+            <p className="mt-3 text-xs leading-5 text-slate-500">
+              Resource note: These links are provided as potentially helpful
+              external references. KidSafe Index does not guarantee, endorse, or
+              fully vet every third-party organization, page, or recommendation.
+            </p>
 
             <div className="mt-4 space-y-4">
               {resources.map((resource) => (
