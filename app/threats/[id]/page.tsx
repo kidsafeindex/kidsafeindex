@@ -92,18 +92,40 @@ function ScoreCard({
   label,
   value,
   description,
+  tone,
 }: {
   label: string;
   value: number;
   description: string;
+  tone: "blue" | "orange" | "purple";
 }) {
+  const toneClasses = {
+    blue: {
+      card: "border-sky-200 bg-sky-50/80",
+      label: "text-sky-700",
+      value: "text-sky-900",
+    },
+    orange: {
+      card: "border-orange-200 bg-orange-50/80",
+      label: "text-orange-700",
+      value: "text-orange-900",
+    },
+    purple: {
+      card: "border-violet-200 bg-violet-50/80",
+      label: "text-violet-700",
+      value: "text-violet-900",
+    },
+  };
+
+  const styles = toneClasses[tone];
+
   return (
-    <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm">
-      <p className="text-sm font-semibold uppercase tracking-wide text-orange-500">
+    <div className={`rounded-2xl border p-5 shadow-sm ${styles.card}`}>
+      <p className={`text-sm font-semibold uppercase tracking-wide ${styles.label}`}>
         {label}
       </p>
-      <p className="mt-3 text-3xl font-bold text-slate-800">{value}/5</p>
-      <p className="mt-3 text-sm leading-6 text-slate-600">{description}</p>
+      <p className={`mt-3 text-3xl font-bold ${styles.value}`}>{value}/5</p>
+      <p className="mt-3 text-sm leading-6 text-slate-700">{description}</p>
     </div>
   );
 }
@@ -174,16 +196,19 @@ export default async function ThreatDetailPage({
             label="Exposure Risk"
             value={threat.exposureRisk}
             description={scoreExplanation.exposure}
+            tone="blue"
           />
           <ScoreCard
             label="Harm Severity"
             value={threat.harmSeverity}
             description={scoreExplanation.harm}
+            tone="orange"
           />
           <ScoreCard
             label={susceptibilityLabel}
             value={threat.susceptibility}
             description={scoreExplanation.susceptibility}
+            tone="purple"
           />
         </div>
       </section>
@@ -226,13 +251,28 @@ export default async function ThreatDetailPage({
             )}
           </div>
 
-          <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
-            <h2 className="text-xl font-semibold text-slate-800">
-              Lumo’s Tip
-            </h2>
-            <p className="mt-4 text-sm leading-6 text-slate-600">
-              {threat.lumoTip || "No additional context available yet."}
-            </p>
+          <div className="overflow-hidden rounded-2xl border border-sky-200 shadow-sm">
+            <div className="bg-gradient-to-br from-sky-100 via-cyan-50 to-orange-50 p-6">
+              <div className="flex items-center gap-3">
+                <img
+                  src="/lumo.png"
+                  alt="Lumo"
+                  className="h-12 w-12 shrink-0"
+                />
+                <div>
+                  <h2 className="text-xl font-semibold text-slate-800">
+                    Lumo’s Tip
+                  </h2>
+                  <p className="text-sm text-slate-600">
+                    Quick context to help make sense of this risk.
+                  </p>
+                </div>
+              </div>
+
+              <p className="mt-5 text-sm leading-6 text-slate-700">
+                {threat.lumoTip || "No additional context available yet."}
+              </p>
+            </div>
           </div>
         </div>
       </section>
