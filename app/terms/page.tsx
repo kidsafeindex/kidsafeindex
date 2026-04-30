@@ -25,10 +25,10 @@ export default function TermsPage() {
               Using KidSafe Index
             </h2>
             <p className="mt-4 leading-7 text-slate-700">
-              KidSafe Index is intended to help parents and families better
-              understand online risks affecting kids across apps, video games,
-              and the wider online world. By using the site, you agree to use it
-              only for lawful and appropriate purposes.
+              KidSafe Index is intended to help parents, caregivers, and
+              families better understand digital risks affecting kids, teens,
+              and the broader household environment. By using the site, you
+              agree to use it only for lawful and appropriate purposes.
             </p>
           </div>
 
@@ -40,8 +40,8 @@ export default function TermsPage() {
               KidSafe Index provides educational information, general guidance,
               and risk-related context. It is not legal advice, medical advice,
               emergency response guidance, or a substitute for law enforcement,
-              mental health support, or professional services when those are
-              needed.
+              mental health support, cybersecurity services, or other
+              professional services when those are needed.
             </p>
           </div>
 
@@ -51,10 +51,10 @@ export default function TermsPage() {
             </h2>
             <p className="mt-4 leading-7 text-slate-700">
               We work to make KidSafe Index useful, thoughtful, and reliable,
-              but we cannot guarantee that every score, summary, or resource
-              will always be complete, current, or correct in every situation.
-              Online risks change quickly, and every family’s circumstances are
-              different.
+              but we cannot guarantee that every score, summary, trend signal,
+              resource, or threat category will always be complete, current, or
+              correct in every situation. Digital risks change quickly, and
+              every family’s circumstances are different.
             </p>
           </div>
 
@@ -80,8 +80,23 @@ export default function TermsPage() {
             <p className="mt-4 leading-7 text-slate-700">
               KidSafe Index may link to outside websites, official reporting
               tools, and third-party resources. Those external sites are
-              provided for convenience and usefulness, but KidSafe Index does not
-              control or guarantee their content, availability, or policies.
+              provided as potentially helpful references, but KidSafe Index does
+              not control or guarantee their content, availability, accuracy, or
+              policies, and inclusion does not necessarily mean endorsement.
+            </p>
+          </div>
+
+          <div>
+            <h2 className="text-2xl font-bold text-slate-800">
+              Scores, Trends, and Threat Summaries
+            </h2>
+            <p className="mt-4 leading-7 text-slate-700">
+              Risk scores, trend indicators, summaries, and audience categories
+              are designed to help users interpret digital risks more clearly.
+              They are informational tools, not definitive measurements or
+              predictions. They should be understood as part of a broader effort
+              to make online safety easier to follow, not as guarantees of
+              outcome or severity in every case.
             </p>
           </div>
 
@@ -99,9 +114,7 @@ export default function TermsPage() {
           </div>
 
           <div>
-            <h2 className="text-2xl font-bold text-slate-800">
-              Privacy
-            </h2>
+            <h2 className="text-2xl font-bold text-slate-800">Privacy</h2>
             <p className="mt-4 leading-7 text-slate-700">
               Your use of KidSafe Index is also subject to the site’s Privacy
               page, which explains how subscriber and contact information is
@@ -115,15 +128,13 @@ export default function TermsPage() {
             </h2>
             <p className="mt-4 leading-7 text-slate-700">
               KidSafe Index may evolve over time. Content, features, resources,
-              and site functionality may be updated, added, or removed as the
-              project grows.
+              categories, and site functionality may be updated, added, or
+              removed as the project grows.
             </p>
           </div>
 
           <div>
-            <h2 className="text-2xl font-bold text-slate-800">
-              Contact
-            </h2>
+            <h2 className="text-2xl font-bold text-slate-800">Contact</h2>
             <p className="mt-4 leading-7 text-slate-700">
               If you have questions about these terms, you can use the Contact
               page to get in touch.
