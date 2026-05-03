@@ -107,6 +107,40 @@ async function getSignals(signalIds: string[]): Promise<SignalRecord[]> {
   return records.filter(Boolean) as SignalRecord[];
 }
 
+function normalizeUrl(url?: string | null) {
+  if (!url) return "";
+
+  try {
+    const parsed = new URL(url);
+
+    parsed.search = "";
+    parsed.hash = "";
+
+    return parsed.toString().replace(/\/$/, "").toLowerCase();
+  } catch {
+    return url.trim().replace(/\/$/, "").toLowerCase();
+  }
+}
+
+function dedupeSignalsBySourceUrl(signals: SignalRecord[]) {
+  const seen = new Set<string>();
+
+  return signals.filter((signal) => {
+    const normalizedUrl = normalizeUrl(signal.sourceUrl);
+
+    if (!normalizedUrl) {
+      return true;
+    }
+
+    if (seen.has(normalizedUrl)) {
+      return false;
+    }
+
+    seen.add(normalizedUrl);
+    return true;
+  });
+}
+
 function getSusceptibilityLabel(audienceScope: string) {
   return audienceScope === "Family/Parent"
     ? "Household Susceptibility"
@@ -427,6 +461,8 @@ export default async function ThreatDetailPage({
   }
 
   const signals = await getSignals(threat.signals);
+  const uniqueSignals = dedupeSignalsBySourceUrl(signals);
+
   const susceptibilityLabel = getSusceptibilityLabel(threat.audienceScope);
   const adviceHeading = getAdviceHeading(threat.audienceScope);
   const scoreExplanation = getScoreExplanation(threat.audienceScope);
@@ -563,7 +599,7 @@ export default async function ThreatDetailPage({
 
       <SectionDivider />
 
-      {signals.length > 0 && (
+      {uniqueSignals.length > 0 && (
         <section className="mx-auto max-w-5xl px-6 py-12">
           <SectionHeading eyebrow="Source Trail" title="Recent Reporting" />
           <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
@@ -573,7 +609,7 @@ export default async function ThreatDetailPage({
             </p>
 
             <div className="mt-5 space-y-4">
-              {signals.map((signal) => (
+              {uniqueSignals.map((signal) => (
                 <a
                   key={signal.id}
                   href={signal.sourceUrl || "#"}
