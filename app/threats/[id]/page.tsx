@@ -26,6 +26,29 @@ type ResourceCard = {
   href: string;
 };
 
+function getAirtableText(
+  fields: Record<string, unknown>,
+  fieldNames: string[]
+): string {
+  for (const fieldName of fieldNames) {
+    const value = fields[fieldName];
+
+    if (typeof value === "string" && value.trim()) {
+      return value.trim();
+    }
+
+    if (Array.isArray(value) && value.length > 0) {
+      const firstValue = value[0];
+
+      if (typeof firstValue === "string" && firstValue.trim()) {
+        return firstValue.trim();
+      }
+    }
+  }
+
+  return "";
+}
+
 async function getThreat(id: string): Promise<ThreatDetail | null> {
   const baseId = process.env.AIRTABLE_BASE_ID;
   const token = process.env.AIRTABLE_TOKEN;
@@ -53,19 +76,37 @@ async function getThreat(id: string): Promise<ThreatDetail | null> {
   }
 
   const record = await response.json();
+  const fields = record.fields as Record<string, unknown>;
 
   return {
     id: record.id,
-    name: record.fields["Threat Name"] || "Untitled threat",
-    summary: record.fields["Summary"] || "No summary available.",
-    threatType: record.fields["Threat Type"] || "Unknown",
-    audienceScope: record.fields["Audience Scope"] || "Child/Teen",
-    exposureRisk: record.fields["AI Exposure Risk"] ?? 0,
-    harmSeverity: record.fields["AI Harm Severity"] ?? 0,
-    susceptibility: record.fields["AI Child Susceptibility"] ?? 0,
-    parentAdvice: record.fields["Parent Advice"] || "",
-    lumoTip: record.fields["Lumo Tip"] || "",
-    signals: record.fields["Signals"] || [],
+    name:
+      getAirtableText(fields, ["Threat Name", "Name"]) || "Untitled threat",
+    summary:
+      getAirtableText(fields, ["Summary"]) || "No summary available.",
+    threatType:
+      getAirtableText(fields, ["Threat Type"]) || "Unknown",
+    audienceScope:
+      getAirtableText(fields, ["Audience Scope"]) || "Child/Teen",
+    exposureRisk:
+      typeof fields["AI Exposure Risk"] === "number"
+        ? fields["AI Exposure Risk"]
+        : 0,
+    harmSeverity:
+      typeof fields["AI Harm Severity"] === "number"
+        ? fields["AI Harm Severity"]
+        : 0,
+    susceptibility:
+      typeof fields["AI Child Susceptibility"] === "number"
+        ? fields["AI Child Susceptibility"]
+        : 0,
+    parentAdvice:
+      getAirtableText(fields, ["Parent Advice"]) || "",
+    lumoTip:
+      getAirtableText(fields, ["Lumo Tip"]) || "",
+    signals: Array.isArray(fields["Signals"])
+      ? (fields["Signals"] as string[])
+      : [],
   };
 }
 
@@ -93,13 +134,26 @@ async function getSignals(signalIds: string[]): Promise<SignalRecord[]> {
       }
 
       const record = await response.json();
+      const fields = record.fields as Record<string, unknown>;
 
       return {
         id: record.id,
-        title: record.fields["Signal Title"] || "Untitled source",
-        sourceUrl: record.fields["Source URL"] || "",
-        sourceName: record.fields["Source Name"] || "Unknown source",
-        date: record.fields["Date"] || "",
+        title:
+          getAirtableText(fields, ["Signal Title", "Title", "Headline"]) ||
+          "Untitled source",
+        sourceUrl: getAirtableText(fields, [
+          "Source URL",
+          "Source Url",
+          "SourceURL",
+          "URL",
+          "Link",
+          "Article URL",
+          "Source Link",
+        ]),
+        sourceName:
+          getAirtableText(fields, ["Source Name", "Source", "Publisher"]) ||
+          "Unknown source",
+        date: getAirtableText(fields, ["Date", "Published Date", "Created Time"]),
       };
     })
   );
@@ -501,6 +555,7 @@ export default async function ThreatDetailPage({
 
       <section className="mx-auto max-w-5xl px-6 py-10">
         <SectionHeading eyebrow="Risk Snapshot" title="Current Risk Scores" />
+
         <div className="grid gap-6 md:grid-cols-3">
           <ScoreCard
             label="Exposure Risk"
@@ -602,30 +657,50 @@ export default async function ThreatDetailPage({
       {uniqueSignals.length > 0 && (
         <section className="mx-auto max-w-5xl px-6 py-12">
           <SectionHeading eyebrow="Source Trail" title="Recent Reporting" />
+
           <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
             <p className="text-sm leading-6 text-slate-600">
-              These are some of the signals and source stories that informed this
-              threat summary.
+              These are some of the signals and source stories that informed
+              this threat summary.
             </p>
 
             <div className="mt-5 space-y-4">
-              {uniqueSignals.map((signal) => (
-                <a
-                  key={signal.id}
-                  href={signal.sourceUrl || "#"}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="block rounded-xl border border-slate-200 bg-slate-50 p-4 transition hover:border-blue-200 hover:bg-blue-50/40"
-                >
-                  <h3 className="text-sm font-semibold text-slate-800">
-                    {signal.title}
-                  </h3>
-                  <p className="mt-2 text-xs uppercase tracking-wide text-slate-500">
-                    {signal.sourceName}
-                    {signal.date ? ` • ${signal.date}` : ""}
-                  </p>
-                </a>
-              ))}
+              {uniqueSignals.map((signal) => {
+                const sourceContent = (
+                  <>
+                    <h3 className="text-sm font-semibold text-slate-800">
+                      {signal.title}
+                    </h3>
+                    <p className="mt-2 text-xs uppercase tracking-wide text-slate-500">
+                      {signal.sourceName}
+                      {signal.date ? ` • ${signal.date}` : ""}
+                    </p>
+                  </>
+                );
+
+                if (!signal.sourceUrl) {
+                  return (
+                    <div
+                      key={signal.id}
+                      className="block rounded-xl border border-slate-200 bg-slate-50 p-4"
+                    >
+                      {sourceContent}
+                    </div>
+                  );
+                }
+
+                return (
+                  <a
+                    key={signal.id}
+                    href={signal.sourceUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="block rounded-xl border border-slate-200 bg-slate-50 p-4 transition hover:border-blue-200 hover:bg-blue-50/40"
+                  >
+                    {sourceContent}
+                  </a>
+                );
+              })}
             </div>
           </div>
         </section>
