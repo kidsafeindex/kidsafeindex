@@ -22,7 +22,7 @@ async function getChildTeenThreats(): Promise<Threat[]> {
   }
 
   const formula = encodeURIComponent(`{Audience Scope} = "Child/Teen"`);
-  const url = `https://api.airtable.com/v0/${baseId}/Threats?filterByFormula=${formula}&maxRecords=6&sort[0][field]=Threat%20Score&sort[0][direction]=desc`;
+  const url = `https://api.airtable.com/v0/${baseId}/Threats?filterByFormula=${formula}&maxRecords=6&sort[0][field]=Date%20Detected&sort[0][direction]=desc`;
 
   const response = await fetch(url, {
     headers: {
@@ -56,7 +56,7 @@ async function getFamilyParentThreats(): Promise<Threat[]> {
   }
 
   const formula = encodeURIComponent(`{Audience Scope} = "Family/Parent"`);
-  const url = `https://api.airtable.com/v0/${baseId}/Threats?filterByFormula=${formula}&maxRecords=6&sort[0][field]=Threat%20Score&sort[0][direction]=desc`;
+  const url = `https://api.airtable.com/v0/${baseId}/Threats?filterByFormula=${formula}&maxRecords=6&sort[0][field]=Date%20Detected&sort[0][direction]=desc`;
 
   const response = await fetch(url, {
     headers: {
@@ -155,9 +155,10 @@ export default async function Home() {
             </h1>
 
             <p className="mt-5 max-w-2xl text-lg text-slate-600">
-                KidSafe Index helps parents make sense of fast-changing digital risks
-                by tracking child and teen online safety issues alongside broader
-                family-relevant threats like scams, breaches, phishing, and privacy concerns.
+              KidSafe Index helps parents make sense of fast-changing digital
+              risks by tracking child and teen online safety issues alongside
+              broader family-relevant threats like scams, breaches, phishing,
+              and privacy concerns.
             </p>
           </div>
 
@@ -218,8 +219,7 @@ export default async function Home() {
             Child &amp; Teen Safety Watch
           </h2>
           <p className="mt-2 text-slate-600">
-            The most important online safety risks we’re tracking right now for kids
-            and teens.
+            The newest online safety risks we’re tracking for kids and teens.
           </p>
         </div>
 
@@ -246,8 +246,9 @@ export default async function Home() {
               Family &amp; Parent Safety Watch
             </h2>
             <p className="mt-2 text-slate-600">
-              Broader digital safety risks parents and households should keep an eye on,
-              including scams, breaches, malware, and other family-relevant threats.
+              The newest broader digital safety risks parents and households
+              should keep an eye on, including scams, breaches, malware, and
+              other family-relevant threats.
             </p>
           </div>
 
@@ -272,9 +273,8 @@ export default async function Home() {
               How KidSafe Index Helps
             </h2>
             <p className="mt-2 max-w-2xl text-slate-600">
-                  KidSafe Index helps families make sense of online risks by turning
-                  fast-changing digital safety issues into clear, useful insights.
-
+              KidSafe Index helps families make sense of online risks by turning
+              fast-changing digital safety issues into clear, useful insights.
             </p>
           </div>
 
@@ -282,22 +282,26 @@ export default async function Home() {
             <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
               <h3 className="text-lg font-semibold">Spot Risks Earlier</h3>
               <p className="mt-3 text-sm leading-6 text-slate-600">
-                Stay aware of emerging digital safety concerns affecting kids, teens, and the households around them.
+                Stay aware of emerging digital safety concerns affecting kids,
+                teens, and the households around them.
               </p>
             </div>
 
             <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
               <h3 className="text-lg font-semibold">Understand What Matters</h3>
-                <p className="mt-3 text-sm leading-6 text-slate-600">
-                  Get plain-language explanations of threats, trends, and online safety concerns without having to sort through technical or confusing information.
-                </p>
+              <p className="mt-3 text-sm leading-6 text-slate-600">
+                Get plain-language explanations of threats, trends, and online
+                safety concerns without having to sort through technical or
+                confusing information.
+              </p>
             </div>
 
             <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
               <h3 className="text-lg font-semibold">Know What To Do Next</h3>
-                <p className="mt-3 text-sm leading-6 text-slate-600">
-                  Use practical guidance to better understand what each issue means and how to respond with more confidence.
-                </p>
+              <p className="mt-3 text-sm leading-6 text-slate-600">
+                Use practical guidance to better understand what each issue
+                means and how to respond with more confidence.
+              </p>
             </div>
           </div>
         </div>
